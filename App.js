@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import { View, Text } from "react-native";
+
+// packages
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./src/pages/home/Home";
+import Product from "./src/pages/product/Product";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+   const Stack = createNativeStackNavigator();
+   return (
+      <NavigationContainer>
+         <Stack.Navigator initialRouteName='Home'>
+            <Stack.Screen
+               name='Home'
+               options={{
+                  statusBarColor: "#FEFEFE",
+                  headerShadowVisible: false,
+               }}>
+               {(props) => <Home {...props} />}
+            </Stack.Screen>
+            <Stack.Screen
+               name='Product'
+               options={{ statusBarColor: "#FEFEFE", headerShadowVisible: false }}>
+               {(props) => <Product {...props} />}
+            </Stack.Screen>
+         </Stack.Navigator>
+      </NavigationContainer>
+   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
